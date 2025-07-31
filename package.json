@@ -1,0 +1,19 @@
+{
+  "name": "express-posgre",
+  "version": "1.0.0",
+  "description": "belajar express dan postgre",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dekadi136",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.12.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "prisma": "^6.12.0"
+  }
+}
