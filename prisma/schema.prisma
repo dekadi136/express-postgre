@@ -20,6 +20,9 @@ model User {
   createdAt DateTime @default(now())
   email     String   @unique
   name      String?
+  password String
+  biodata Biodata?
+  blogs Blog[]
 }
 
 model Blog {
@@ -27,12 +30,16 @@ model Blog {
   createdAt DateTime @default(now())
   title String 
   content String?
+  userId Int 
+  user User @relation(fields: [userId], references: [id])
+  categories CategoryOnBlog[]
 }
 
 model Category {
   id    Int    @id @default(autoincrement())
   createdAt DateTime @default(now())
   name  String
+  categoryOnBlogs CategoryOnBlog[]
 }
 
 model Biodata {
@@ -43,4 +50,15 @@ model Biodata {
   tanggal_lahir DateTime
   alamat String
   sudah_menikah String
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
+}
+
+model CategoryOnBlog{
+  id    Int    @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  blogId Int
+  categoryId Int
+  blog Blog @relation(fields: [blogId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
 }
