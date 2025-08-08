@@ -1,7 +1,7 @@
 import "dotenv/config"
 import exp from "express";
 const server = exp();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 import authRoutes from "./routes/auth.js"
 import usersRoutes from "./routes/user.js"
 import blogsRoutes from "./routes/blog.js"
