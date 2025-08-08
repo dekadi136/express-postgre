@@ -1,5 +1,5 @@
 import exp from "express";
-import { authenticationTokenMiddleware } from "../controller/authenticationToken.js";
+import { authenticationTokenMiddleware } from "../middleware/authenticationToken.js";
 import { createCategories, getCategories, getCategoryById, deleteCategory, updateCategory } from "../controller/category.js";
 
 const router = exp.Router();

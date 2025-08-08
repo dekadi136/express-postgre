@@ -8,6 +8,9 @@ import blogsRoutes from "./routes/blog.js"
 import categoriesRoutes from "./routes/category.js"
 import biodatasRoutes from "./routes/biodata.js"
 import categoryOnBlogsRoutes from "./routes/categoryOnBlog.js"
+import cors from "cors";
+
+server.use(cors());
 
 // Middleware to parse JSON bodies
 server.use(exp.json());
@@ -36,3 +39,5 @@ function startServer() {
   console.log("Server is running on port " + port);
 }
 server.listen(port, startServer);
+
+export default server;

@@ -1,5 +1,5 @@
 import exp from "express";
-import { authenticationTokenMiddleware } from "../controller/authenticationToken.js";
+import { authenticationTokenMiddleware } from "../middleware/authenticationToken.js";
 import { createBiodata,getBiodataByNim, getBiodatas, deleteBiodata, updateBiodata } from "../controller/biodata.js";
 
 const router = exp.Router();

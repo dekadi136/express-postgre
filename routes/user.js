@@ -9,9 +9,9 @@ const server = exp();
 // const secret = process.env.JWT_SECRET;
 // import { PrismaClient } from "./generated/prisma/index.js";
 import { getUserByUserId, getUsers, deleteUser, updateUser } from "../controller/user.js";
-import { authenticationTokenMiddleware } from "../controller/authenticationToken.js";
+import { authenticationTokenMiddleware } from "../middleware/authenticationToken.js";
 // import authRoutes from "./routes/auth.js"
-
+ 
 const router = exp.Router()
 
 router.get("/users", authenticationTokenMiddleware, getUsers);
