@@ -52,11 +52,6 @@ export async function getBlogs(request, response) {
             category: true
           }
         }
-        // categoryOnBlog: {
-        //   include: {
-        //     category: true
-        //   }
-        // }
       }
     });
     // console.log(blogs[1].user.email)
@@ -79,7 +74,7 @@ export async function getBlogs(request, response) {
         createdAt: blogs[i].createdAt,
         id: blogs[i].id,
         title: blogs[i].title,
-        content: blogs[i].title,
+        content: blogs[i].content,
         user:{
           name: blogs[i].user.name,
           email:  email_fix
@@ -259,3 +254,4 @@ export async function deleteBlog(request, response) {
     return response.status(500).json({ error: "Internal server error" });
   }
 }
+
