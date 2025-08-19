@@ -101,6 +101,37 @@ export async function getBiodataByNim(request, response) {
   }
 }
 
+export async function getBiodataById(request, response) {
+  // const id = request.params.nim;
+
+  try {
+    // Create the Biodata in the database using Prisma
+    const where = {
+      id: +request.user.userId,
+    };
+
+    const biodata = await prisma.biodata.findUnique({
+      where: where,
+    });
+
+        // console.log(request.user.userId + " !=== " + biodata.userId) ;
+
+    if(biodata.userId !== request.user.userId){
+      return response.status(500).json({ error: "Unknown authorize" });
+    }
+
+    // if(biodata){
+    //   return response.status(500).json({ error: "Unknown authorize" });
+    // }
+
+    // Return the created Biodata
+    return response.status(200).json(biodata);
+  } catch (error) {
+    console.error("Error creating blog:", error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
+}
+
 export async function deleteBiodata(request, response) {
   const nim = request.params.nim;
 

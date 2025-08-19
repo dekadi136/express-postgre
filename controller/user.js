@@ -13,6 +13,55 @@ export async function getUserByUserId(request, response) {
     const where = {
       id: +request.user.userId,
     };
+    
+    // Fetch the user by email f
+    // rom the database using Prisma
+    const user = await prisma.user.findUnique({
+      where: where,
+      include: {
+        biodata: true,
+        blogs: true,
+      }
+    }); 
+
+      // user[i].email
+      // console.log(user[i].email)
+      const sensor = "*";
+      let [username, domain] = user.email.split("@");   
+      // console.log([username, domain])    
+      let huruf_awal = username.slice(0,3)
+      username = huruf_awal + sensor.repeat(username.length-3);
+      // console.log(username)  
+
+      let email_fix = username+"@"+domain;
+      // console.log(email_fix)  
+
+      const user_final = {
+        createdAt: user.createdAt,
+        id: user.id,
+        name: user.name,
+        email: email_fix,
+      }
+    
+
+    // const user = await prisma.user.findMany();
+    return response.status(200).json(user_final);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
+}
+
+export async function getUserById(request, response) {
+  const id = +request.params.id;
+  // if (!email || email.trim() === "") {
+  //   return response.status(400).json({ error: "Email is required" });
+  // }
+
+  try {
+    const where = {
+      id: id,
+    };
     // Fetch the user by email from the database using Prisma
     const user = await prisma.user.findUnique({
       where: where,
@@ -103,14 +152,14 @@ export async function getUsers(request, response) {
  
 // deleteUser function to handle user deletion
 export async function deleteUser(request, response) {
-  // const email = request.params.email;
+  const id = +request.params.id;
   // if (!email || email.trim() === "") {
   //   return response.status(400).json({ error: "Email is required" });
   // }
 
   try {
     const where = {
-      id: request.user.userId,
+      id: id,
     };
 
     // console.log(where)
@@ -145,7 +194,7 @@ export async function deleteUser(request, response) {
 
 // updateUser function to handle user updates
 export async function updateUser(request, response) {
-  // const email = request.params.email;
+  const id = +request.params.id;
   const body = request.body;
 
   if (!body.email || body.email.trim() === "") {
@@ -158,7 +207,7 @@ export async function updateUser(request, response) {
 
   try {
     const where = {
-      id: request.user.userId,
+      id: id,
     };
     // Update the user by email in the database using Prisma
     const user = await prisma.user.update({

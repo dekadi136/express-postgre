@@ -8,15 +8,16 @@ const secret = process.env.JWT_SECRET;
 
 export async function register(request, response) {
   const body = request.body;
+  let [username, domain] = body.email.split("@");   
 
   //validate user input, for example, check if email is provided, email is not empty, etc.
   if (!body.email || body.email.trim() === "") {
     return response.status(400).json({ error: "Email is required" });
   }
 
-  // if (!body.name || body.name.trim() === "") {
-  //   return response.status(400).json({ error: "Name cannot be empty" });
-  // }
+  if (username.length < 4) {
+    return response.status(400).json({ error: "Email name must be at least 4 caracters long" });
+  }
 
   if (!body.password || body.password.trim() === "") {
     return response.status(400).json({ error: "Password cannot be empty" });

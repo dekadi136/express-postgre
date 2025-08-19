@@ -43,6 +43,7 @@ export async function getBlogs(request, response) {
       include:{
         user: {
           select:{
+            id: true,
           name: true,
           email: true
           }
@@ -76,6 +77,7 @@ export async function getBlogs(request, response) {
         title: blogs[i].title,
         content: blogs[i].content,
         user:{
+          id: blogs[i].user.id,
           name: blogs[i].user.name,
           email:  email_fix
         },
@@ -111,6 +113,7 @@ export async function getBlogById(request, response) {
       include:{
         user: {
           select:{
+            id: true,
           name: true,
           email: true
           }
@@ -139,8 +142,9 @@ export async function getBlogById(request, response) {
         createdAt: blogs.createdAt,
         id: blogs.id,
         title: blogs.title,
-        content: blogs.title,
+        content: blogs.content,
         user:{
+          id: blogs.user.id,
           name: blogs.user.name,
           email:  email_fix
         },
@@ -151,16 +155,16 @@ export async function getBlogById(request, response) {
         where: where
       })
 
-    if(blogIdUser.userId !== request.user.userId){
-      return response.status(500).json({ error: "Unknown authorize" });
-    }
+    // if(blogIdUser.userId !== request.user.userId){
+    //   return response.status(500).json({ error: "Unknown authorize" });
+    // }
 
     console.log(blogs)
 
 
-      if(blogs.userId !== request.user.userId){
-        return response.status(500).json({ error: "Unknown authorize" });
-      }
+      // if(blogs.userId !== request.user.userId){
+      //   return response.status(500).json({ error: "Unknown authorize" });
+      // }
 
     return response.status(200).json(blogs_final);
   } catch (error) {

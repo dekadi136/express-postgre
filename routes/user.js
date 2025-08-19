@@ -8,7 +8,7 @@ const server = exp();
 // const port = process.env.PORT;
 // const secret = process.env.JWT_SECRET;
 // import { PrismaClient } from "./generated/prisma/index.js";
-import { getUserByUserId, getUsers, deleteUser, updateUser } from "../controller/user.js";
+import { getUserByUserId, getUsers, deleteUser, updateUser, getUserById } from "../controller/user.js";
 import { authenticationTokenMiddleware } from "../middleware/authenticationToken.js";
 // import authRoutes from "./routes/auth.js"
  
@@ -16,7 +16,8 @@ const router = exp.Router()
 
 router.get("/users", authenticationTokenMiddleware, getUsers);
 router.get("/user", authenticationTokenMiddleware, getUserByUserId);
-router.delete("/users", authenticationTokenMiddleware, deleteUser);
-router.put("/users", authenticationTokenMiddleware, updateUser);
+router.get("/users/:id", authenticationTokenMiddleware, getUserById);
+router.delete("/users/:id", authenticationTokenMiddleware, deleteUser);
+router.put("/users/:id", authenticationTokenMiddleware, updateUser);
 
 export default router;
