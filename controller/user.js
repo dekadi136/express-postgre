@@ -87,7 +87,8 @@ export async function getUserById(request, response) {
         createdAt: user.createdAt,
         id: user.id,
         name: user.name,
-        email: email_fix,
+        email: user.email,
+        emailSensor: email_fix,
       }
     
 
