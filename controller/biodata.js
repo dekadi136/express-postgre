@@ -1,6 +1,6 @@
 import { PrismaClient } from "../generated/prisma/index.js";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // createBiodata function to handle Biodata creation
 export async function createBiodata(request, response) {
@@ -45,7 +45,7 @@ export async function createBiodata(request, response) {
       tanggal_lahir: new Date(body.tanggal_lahir),
       alamat: body.alamat,
       sudah_menikah: status,
-      userId: request.user.userId
+      userId: request.user.userId,
     };
 
     // Create the Biodata in the database using Prisma
@@ -74,26 +74,18 @@ export async function getBiodatas(request, response) {
   }
 }
 
-export async function getBiodataByNim(request, response) {
-  const id = +request.params.id;
+export async function getBiodataByuserId(request, response) {
+  const id = +request.params.userId;
 
   try {
     // Create the Biodata in the database using Prisma
     const where = {
-      id: id,
+      userId: id,
     };
 
     const biodata = await prisma.biodata.findUnique({
       where: where,
     });
-
-        // console.log(request.user.userId + " !=== " + biodata.userId) ;
-
-    // if(biodata.userId !== request.user.userId){
-    //   return response.status(500).json({ error: "Unknown authorize" });
-    // }
-
-    // Return the created Biodata
     return response.status(200).json(biodata);
   } catch (error) {
     console.error("Error creating blog:", error);
@@ -111,18 +103,14 @@ export async function getBiodataById(request, response) {
     };
 
     const biodata = await prisma.biodata.findUnique({
-            where: where
-    }
-
-    );
+      where: where,
+    });
 
     // console.log("Ini adlaah biodata User ID = " + biodata +"Ini adalah res.id = " +request.user.userid) ;
 
     // if(biodata.userId !== request.user.userId){
     //   return response.status(500).json({ error: "Unknown authorize" });
     // }
-
-    
 
     // if(biodata){
     //   return response.status(500).json({ error: "Unknown authorize" });
@@ -142,14 +130,14 @@ export async function deleteBiodata(request, response) {
   try {
     // Create the Biodata in the database using Prisma
     const where = {
-     id: id,
+      id: id,
     };
 
-     const biodataUserId = await prisma.biodata.findUnique({
-      where: where
+    const biodataUserId = await prisma.biodata.findUnique({
+      where: where,
     });
 
-    if(biodataUserId.userId !== request.user.userId){
+    if (biodataUserId.userId !== request.user.userId) {
       return response.status(500).json({ error: "Unknown authorize" });
     }
 
@@ -210,14 +198,14 @@ export async function updateBiodata(request, response) {
       tanggal_lahir: new Date(body.tanggal_lahir),
       alamat: body.alamat,
       sudah_menikah: status,
-      userId: +request.user.userId
+      userId: +request.user.userId,
     };
 
     const biodataUserId = await prisma.biodata.findUnique({
-      where: where
+      where: where,
     });
 
-    if(biodataUserId.userId !== request.user.userId){
+    if (biodataUserId.userId !== request.user.userId) {
       return response.status(500).json({ error: "Unknown authorize" });
     }
 

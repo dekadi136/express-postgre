@@ -31,7 +31,7 @@ model Blog {
   title String 
   content String?
   userId Int 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   categories CategoryOnBlog[]
 }
 
@@ -51,7 +51,7 @@ model Biodata {
   alamat String
   sudah_menikah String
   userId Int @unique
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model CategoryOnBlog{
@@ -59,6 +59,6 @@ model CategoryOnBlog{
   createdAt DateTime @default(now())
   blogId Int
   categoryId Int
-  blog Blog @relation(fields: [blogId], references: [id])
-  category Category @relation(fields: [categoryId], references: [id])
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
